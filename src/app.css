@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/* ── LeadBro design system ──────────────────────────────────────────────────
+   Lifted from the LeadBro design canvas. Light canvas, dark navigation rail,
+   teal primary, five provenance classes that never blur into each other.      */
+
+@theme {
+  --font-sans: "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* surfaces */
+  --color-canvas: #f6f8f9;
+  --color-panel: #ffffff;
+  --color-subtle: #fbfcfd;
+  --color-wash: #f8fafb;
+
+  /* lines */
+  --color-line: #e4e9ed;
+  --color-line-strong: #e1e7eb;
+  --color-line-soft: #eef2f5;
+  --color-rule: #f1f4f6;
+
+  /* ink */
+  --color-ink: #0e1620;
+  --color-ink-2: #2a3742;
+  --color-ink-3: #3c4b59;
+  --color-muted: #6b7a88;
+  --color-muted-2: #8695a3;
+  --color-faint: #c3cdd5;
+  --color-ghost: #cbd5dc;
+
+  /* brand */
+  --color-primary: #0f766e;
+  --color-primary-hover: #115e56;
+  --color-primary-ink: #0b6b62;
+  --color-primary-soft: #edf3f2;
+  --color-primary-tint: #f4faf9;
+  --color-brand: #14b8a6;
+  --color-brand-bright: #2dd4bf;
+  --color-danger: #b22440;
+
+  /* navigation rail */
+  --color-nav: #111820;
+  --color-nav-raised: #161f29;
+  --color-nav-line: #1d2732;
+  --color-nav-line-2: #26323f;
+  --color-nav-hover: #1b2530;
+  --color-nav-active: #1c2836;
+  --color-nav-text: #95a5b3;
+  --color-nav-text-bright: #dce4ea;
+  --color-nav-label: #5c6e80;
+  --color-nav-meta: #7e8fa0;
+  --color-nav-chip: #18222d;
+  --color-nav-chip-line: #2b3947;
+
+  /* tone: good */
+  --color-good-fg: #0b6b62;
+  --color-good-bg: #e6f4f1;
+  --color-good-bd: #c6e5df;
+  /* tone: info */
+  --color-info-fg: #1e4e8c;
+  --color-info-bg: #e9f0fa;
+  --color-info-bd: #cfdff3;
+  /* tone: warn */
+  --color-warn-fg: #8a5a08;
+  --color-warn-bg: #fef7e7;
+  --color-warn-bd: #f3e1b4;
+  /* tone: bad */
+  --color-bad-fg: #9b1c33;
+  --color-bad-bg: #fdebef;
+  --color-bad-bd: #f5cbd5;
+  /* tone: mute */
+  --color-mute-fg: #53616e;
+  --color-mute-bg: #eff2f5;
+  --color-mute-bd: #e0e6eb;
+  /* tone: ai */
+  --color-ai-fg: #4b3b8f;
+  --color-ai-bg: #f2f0fd;
+  --color-ai-bd: #dfd8f8;
+
+  /* data viz — ordered so adjacent series stay distinguishable */
+  --color-viz-1: #0f766e;
+  --color-viz-2: #3b82c4;
+  --color-viz-3: #d9a423;
+  --color-viz-4: #c2415a;
+  --color-viz-5: #9cc9c4;
+  --color-viz-6: #8fa9c4;
+  --color-viz-7: #0d9488;
+  --color-viz-8: #c3cdd5;
+
+  --shadow-card: 0 1px 2px rgb(15 23 32 / 0.05), 0 1px 3px rgb(15 23 32 / 0.03);
+  --shadow-raised: 0 4px 16px rgb(15 23 32 / 0.08);
+  --shadow-float: 0 12px 32px -8px rgb(15 23 32 / 0.22), 0 2px 8px rgb(15 23 32 / 0.08);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Browser surfaces belong to the design system too. */
+  ::selection { background: #cdeae6; color: #06231f; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: #c7d2da;
+    border-radius: 8px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #aab8c3; background-clip: content-box; border: 3px solid transparent; }
+  .rail ::-webkit-scrollbar-thumb { background: #2b3947; background-clip: content-box; }
+
+  :where(a) { color: var(--color-primary); text-decoration: none; }
+  :where(a):hover { color: var(--color-primary-hover); }
+
+  :where(input, textarea, select, button) { font: inherit; color: inherit; }
+  input::placeholder, textarea::placeholder { color: var(--color-muted-2); }
+
+  /* One focus ring for the whole product. */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+    border-radius: 4px;
+  }
+
+  [data-slot="scroll"] { scrollbar-gutter: stable; }
+}
+
+@layer utilities {
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .cap {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-muted-2);
+  }
+  .truncate-1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
+
+/* Motion: state changes only, 150–220ms, from an already-visible default. */
+@keyframes ls-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes ls-slide { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+@keyframes ls-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ls-pulse { 0% { opacity: 0.4; } 50% { opacity: 0.9; } 100% { opacity: 0.4; } }
+@keyframes ls-sweep { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+.anim-rise { animation: ls-rise 0.19s cubic-bezier(0.16, 1, 0.3, 1); }
+.anim-slide { animation: ls-slide 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+.anim-fade { animation: ls-fade 0.15s ease-out; }
+.skeleton {
+  background: linear-gradient(90deg, #eef2f5 0%, #f8fafb 50%, #eef2f5 100%);
+  background-size: 200% 100%;
+  animation: ls-sweep 1.4s linear infinite;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
